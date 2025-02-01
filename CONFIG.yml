@@ -2,7 +2,7 @@ title: Create Gallery Demo
 subtitle: Take Photo Think Seriously
 description: Create Gallery Demo 拿起相机，认真思考
 cover: 'https://github.com/lfkdsk/picx-images-hosting/raw/master/20230817/IMG_7586.4e91my1ve140.17iz0sa56gik.webp'
-author: lfkdsk
+author: Gen Souyou
 
 footer_logo: 
   use: self
@@ -10,8 +10,8 @@ footer_logo:
     link: 'https://lfkdsk.github.io/'
     src: 'https://github.com/lfkdsk/picx-images-hosting/raw/master/20230817/tripper2white.2pbuwaqvndu0.webp'
 
-url: https://lfkdsk.github.io/create-gallery
-root: /create-gallery
+url: https://tayyim.github.io/create-gallery
+root: /gallery
 
 photography_page:
   slogan: true
