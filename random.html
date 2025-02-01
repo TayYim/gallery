@@ -790,7 +790,7 @@ ORDER BY random() LIMIT 1;`
                 }
                 const v = JSON.parse(result[0].values[0]);
                 value = v;
-                var imgLink = 'https://cdn.jsdelivr.netgh/TayYim/gallery@master' + '/' + v.path;
+                var imgLink = 'https://cdn.jsdelivr.net/gh/TayYim/gallery@master' + '/' + v.path;
                 imageBox.src = '';
                 imageBox.src = imgLink;
                 addBackUp(imageBox,"/", v.path);
