@@ -28,5 +28,5 @@ nav:
     link: https://lfkdsk.github.io
     icon: inbox
 
-thumbnail_url: https://cdn.jsdelivr.net/gh/lfkdsk/create-gallery@thumbnail/
-base_url: https://cdn.jsdelivr.net/gh/lfkdsk/create-gallery@master
+thumbnail_url: https://cdn.jsdelivr.net/gh/tayyim/create-gallery@thumbnail/
+base_url: https://cdn.jsdelivr.net/gh/tayyim/create-gallery@master
