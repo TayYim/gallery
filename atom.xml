@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>My Gallery</title>
+  
+  <subtitle>Take Photo Think Seriously</subtitle>
+  <link href="https://lfkdsk.github.io/create-gallery/atom.xml" rel="self"/>
+  
+  <link href="https://lfkdsk.github.io/create-gallery/"/>
+  <updated>2025-02-01T03:41:00.694Z</updated>
+  <id>https://lfkdsk.github.io/create-gallery/</id>
+  
+  <author>
+    <name>Gen Souyou</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>照片集</title>
+    <link href="https://lfkdsk.github.io/create-gallery/2025/undefined/"/>
+    <id>https://lfkdsk.github.io/create-gallery/2025/undefined/</id>
+    <published>2025-02-01T03:41:00.694Z</published>
+    <updated>2025-02-01T03:41:00.694Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+</feed>
