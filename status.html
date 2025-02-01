@@ -285,7 +285,7 @@
         const sqlite_buf = await sqlite.arrayBuffer();
         const db = new SQL.Database(new Uint8Array(sqlite_buf));
         const start = performance.now();
-        const params = [null, db, 'https://cdn.jsdelivr.net/gh/lfkdsk/create-gallery@thumbnail/', ''];
+        const params = [null, db, 'https://cdn.jsdelivr.net/gh/tayyim/create-gallery@thumbnail/', ''];
         queryTable(
             ['Total Count'],
             `
