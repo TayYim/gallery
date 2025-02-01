@@ -1,6 +1,6 @@
-title: Create Gallery Demo
+title: Gallery of Souyou
 subtitle: Take Photo Think Seriously
-description: Create Gallery Demo 拿起相机，认真思考
+description: 拿起相机，认真思考
 cover: 'https://github.com/lfkdsk/picx-images-hosting/raw/master/20230817/IMG_7586.4e91my1ve140.17iz0sa56gik.webp'
 author: Gen Souyou
 
@@ -15,7 +15,7 @@ root: /gallery
 
 photography_page:
   slogan: true
-  slogan_descr: 'The moments when I pressed the shutter, the moments are forever.'
+  slogan_descr: 'Look. Capture. Remember.'
 
 google_analytics: 
   use: gtag
@@ -25,7 +25,7 @@ google_analytics:
 
 nav:
   归档: 
-    link: https://lfkdsk.github.io
+    link: https://tayyim.github.io
     icon: inbox
 
 thumbnail_url: https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail/
