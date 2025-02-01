@@ -287,10 +287,10 @@ WHERE album.dir = '` + name + "'"
     for (const v of result) {
       var d = document.createElement('div');
       d.classList = 'gpro-tile lazy';
-      d.setAttribute('data-src', 'https://cdn.staticaly.com/gh/TayYim/gallery@thumbnail/' + v[0].replace(/\.\w+$/, '.webp'));
+      d.setAttribute('data-src', 'https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail/' + v[0].replace(/\.\w+$/, '.webp'));
       var a = document.createElement('a');
       a.setAttribute('data-fancybox', 'gallery');
-      a.href = 'https://cdn.staticaly.com/gh/TayYim/gallery@master/' + v[0];
+      a.href = 'https://cdn.jsdelivr.netgh/TayYim/gallery@master/' + v[0];
       a.appendChild(d);
       grid.appendChild(a);
       if (setTitle) {
