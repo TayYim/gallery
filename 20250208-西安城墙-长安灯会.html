@@ -283,12 +283,13 @@
 </style>
   <!-- Main Content -->
   <script src="js/html2canvas.js"></script>
+<script src="js/mini-live-photo.js"></script>
 <section class="pjax-area">
   <div class="content-area post-album fullscreen-content-area">
     <div class="grid grid-cols-3">
       <div class="fullscreen-pic gap-2 wrapper">
         <div id="all-pic" class="pic-area">
-          <div class="pic-item" />
+          <div id="pic-g" class="pic-item" />
           <img id="imgbox" class="pic-box" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3516.5k4q6189ihc0.webp" />
         </div>
         <div id="exif-wrapper" class="pic-wrapper">
@@ -371,7 +372,7 @@
     @media (max-width: 768px) {
         .pic-wrapper {
             padding: 4px 0px;
-        }        
+        }
 
         #exif-param {
             font-size: .5rem;
@@ -395,12 +396,12 @@
         }
     }
 
-    .apple-logo, 
-    .ricoh-logo, 
+    .apple-logo,
+    .ricoh-logo,
     .fujifilm-logo {
         height: 40px;
     }
-    
+
     .nikon-logo {
         height: 50px;
     }
@@ -413,10 +414,10 @@
     .dji-logo {
         width: 60px;
     }
-    
+
     @media (max-width: 768px) {
-        .apple-logo, 
-        .ricoh-logo, 
+        .apple-logo,
+        .ricoh-logo,
         .nikon-logo,
         .fujifilm-logo {
             height: 30px;
@@ -435,8 +436,47 @@
             border-width: thin;
             background-color: white;
             border-color: white;
-        }        
+        }
     }
+
+.mlp-wrap {
+    overflow: hidden;
+    border-radius: inherit;    /* 如果父级有圆角，继承一下更自然 */
+}
+
+.mlp-wrap, [data-livephoto] { position: relative; overflow: hidden; border-radius: inherit; }
+
+/* 初始隐藏视频，启用硬件合成避免闪烁 */
+.mlp-wrap .mlp-video, [data-livephoto] .mlp-video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+  opacity:0; transition:opacity .18s ease, transform .25s ease;
+  will-change: opacity, transform; pointer-events:none;
+}
+
+/* “首帧就绪”后，允许显示（只把不透明度交给 JS 控） */
+.mlp-wrap.is-prepped .mlp-video,
+[data-livephoto].is-prepped .mlp-video{ opacity:0; }
+
+/* 开始播放时再交叉淡入 */
+.mlp-wrap.is-playing .mlp-video,
+[data-livephoto].is-playing .mlp-video{ opacity:1; }
+
+/* （可选）缩放动画 */
+.mlp-wrap.is-zoom .mlp-video,
+[data-livephoto].is-zoom .mlp-video{ transform: scale(1.04); }
+
+[data-livephoto].is-playing {
+  -webkit-touch-callout: none;
+  user-select: none;
+  touch-action: none;
+}
+
+/* 禁止浏览器把 img/video 当成可拖拽对象 */
+[data-livephoto] img,
+[data-livephoto] video {
+  -webkit-user-drag: none;
+  user-drag: none; /* 非标准，但部分浏览器支持 */
+}
 </style>
       </div>
       <p id="descbox" class="text-center text-xs hint-text" hidden>  </p>
@@ -452,13 +492,16 @@
           
           
           
+          
           <a class="album-item lazy" id="0"
             name="DSCF3516.5k4q6189ihc0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3516.5k4q6189ihc0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3516.5k4q6189ihc0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/170s F3.5 ISO 1000 56.3mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 19:30:15","EXIF ExposureTime":"1/170s","EXIF FNumber":"F3.5","EXIF FocalLength":"56.3mm","EXIF ISOSpeedRatings":"ISO 1000","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF3516.5k4q6189ihc0","path":"20250208-西安城墙-长安灯会/DSCF3516.5k4q6189ihc0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3516.5k4q6189ihc0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3516.5k4q6189ihc0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3516.5k4q6189ihc0.webp"
             aria-label="the photo 0"></a>
+          
           
           
           
@@ -474,9 +517,11 @@
             name="DSCF3527.1cej8ze3vjvk" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3527.1cej8ze3vjvk.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3527.1cej8ze3vjvk.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 640 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 19:36:00","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 640","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.25318583333333,108.94206833333334],"name":"DSCF3527.1cej8ze3vjvk","path":"20250208-西安城墙-长安灯会/DSCF3527.1cej8ze3vjvk.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3527.1cej8ze3vjvk.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3527.1cej8ze3vjvk.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3527.1cej8ze3vjvk.webp"
             aria-label="the photo 1"></a>
+          
           
           
           
@@ -492,9 +537,11 @@
             name="DSCF3534.292zdhndri68" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3534.292zdhndri68.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3534.292zdhndri68.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 1000 27.4mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 19:46:06","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"27.4mm","EXIF ISOSpeedRatings":"ISO 1000","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.25343222222222,108.94269694444445],"name":"DSCF3534.292zdhndri68","path":"20250208-西安城墙-长安灯会/DSCF3534.292zdhndri68.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3534.292zdhndri68.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3534.292zdhndri68.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3534.292zdhndri68.webp"
             aria-label="the photo 2"></a>
+          
           
           
           
@@ -510,9 +557,11 @@
             name="DSCF3544.65ke0i7g5mo0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3544.65ke0i7g5mo0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3544.65ke0i7g5mo0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 4000 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 19:48:06","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 4000","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.2530725,108.94272388888889],"name":"DSCF3544.65ke0i7g5mo0","path":"20250208-西安城墙-长安灯会/DSCF3544.65ke0i7g5mo0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3544.65ke0i7g5mo0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3544.65ke0i7g5mo0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3544.65ke0i7g5mo0.webp"
             aria-label="the photo 3"></a>
+          
           
           
           
@@ -528,9 +577,11 @@
             name="DSCF3567.14j94vunc0sg" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3567.14j94vunc0sg.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3567.14j94vunc0sg.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/200s F3.2 ISO 2500 65.4mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:00:52","EXIF ExposureTime":"1/200s","EXIF FNumber":"F3.2","EXIF FocalLength":"65.4mm","EXIF ISOSpeedRatings":"ISO 2500","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.25340555555555,108.944225],"name":"DSCF3567.14j94vunc0sg","path":"20250208-西安城墙-长安灯会/DSCF3567.14j94vunc0sg.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3567.14j94vunc0sg.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3567.14j94vunc0sg.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3567.14j94vunc0sg.webp"
             aria-label="the photo 4"></a>
+          
           
           
           
@@ -546,9 +597,11 @@
             name="DSCF3570.67f1s19rxpg0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3570.67f1s19rxpg0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3570.67f1s19rxpg0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/125s F3.2 ISO 640 42.9mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:01:09","EXIF ExposureTime":"1/125s","EXIF FNumber":"F3.2","EXIF FocalLength":"42.9mm","EXIF ISOSpeedRatings":"ISO 640","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.253425,108.94422361111111],"name":"DSCF3570.67f1s19rxpg0","path":"20250208-西安城墙-长安灯会/DSCF3570.67f1s19rxpg0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3570.67f1s19rxpg0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3570.67f1s19rxpg0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3570.67f1s19rxpg0.webp"
             aria-label="the photo 5"></a>
+          
           
           
           
@@ -564,9 +617,11 @@
             name="DSCF3578.1029jljjto2o" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3578.1029jljjto2o.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3578.1029jljjto2o.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.2 ISO 800 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:06:09","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.2","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 800","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.253411944444444,108.94470805555557],"name":"DSCF3578.1029jljjto2o","path":"20250208-西安城墙-长安灯会/DSCF3578.1029jljjto2o.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3578.1029jljjto2o.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3578.1029jljjto2o.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3578.1029jljjto2o.webp"
             aria-label="the photo 6"></a>
+          
           
           
           
@@ -582,9 +637,11 @@
             name="DSCF3579.45e4czqfurm0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3579.45e4czqfurm0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3579.45e4czqfurm0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.2 ISO 1250 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:06:36","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.2","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 1250","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.25338,108.94459694444444],"name":"DSCF3579.45e4czqfurm0","path":"20250208-西安城墙-长安灯会/DSCF3579.45e4czqfurm0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3579.45e4czqfurm0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3579.45e4czqfurm0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3579.45e4czqfurm0.webp"
             aria-label="the photo 7"></a>
+          
           
           
           
@@ -600,9 +657,11 @@
             name="DSCF3580.2fqjn1cjs2f4" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3580.2fqjn1cjs2f4.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3580.2fqjn1cjs2f4.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 640 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:09:12","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 640","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.25344027777778,108.94491333333333],"name":"DSCF3580.2fqjn1cjs2f4","path":"20250208-西安城墙-长安灯会/DSCF3580.2fqjn1cjs2f4.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3580.2fqjn1cjs2f4.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3580.2fqjn1cjs2f4.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3580.2fqjn1cjs2f4.webp"
             aria-label="the photo 8"></a>
+          
           
           
           
@@ -618,9 +677,11 @@
             name="DSCF3587.zrtt09k7o80" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3587.zrtt09k7o80.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3587.zrtt09k7o80.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 1250 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:15:16","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 1250","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.253414722222224,108.94621777777778],"name":"DSCF3587.zrtt09k7o80","path":"20250208-西安城墙-长安灯会/DSCF3587.zrtt09k7o80.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3587.zrtt09k7o80.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3587.zrtt09k7o80.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3587.zrtt09k7o80.webp"
             aria-label="the photo 9"></a>
+          
           
           
           
@@ -636,9 +697,11 @@
             name="DSCF3597.rkxf07iapo0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3597.rkxf07iapo0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3597.rkxf07iapo0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 800 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:18:29","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 800","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.2534,108.94715972222222],"name":"DSCF3597.rkxf07iapo0","path":"20250208-西安城墙-长安灯会/DSCF3597.rkxf07iapo0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3597.rkxf07iapo0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3597.rkxf07iapo0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3597.rkxf07iapo0.webp"
             aria-label="the photo 10"></a>
+          
           
           
           
@@ -654,9 +717,11 @@
             name="DSCF3599.5vun83h3dnc0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3599.5vun83h3dnc0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3599.5vun83h3dnc0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 2000 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:19:41","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 2000","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.253412777777775,108.94744944444444],"name":"DSCF3599.5vun83h3dnc0","path":"20250208-西安城墙-长安灯会/DSCF3599.5vun83h3dnc0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3599.5vun83h3dnc0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3599.5vun83h3dnc0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3599.5vun83h3dnc0.webp"
             aria-label="the photo 11"></a>
+          
           
           
           
@@ -672,9 +737,11 @@
             name="DSCF3600.8p4s2269u3g" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3600.8p4s2269u3g.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3600.8p4s2269u3g.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 800 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:20:34","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 800","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.253439444444446,108.94766416666667],"name":"DSCF3600.8p4s2269u3g","path":"20250208-西安城墙-长安灯会/DSCF3600.8p4s2269u3g.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3600.8p4s2269u3g.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3600.8p4s2269u3g.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3600.8p4s2269u3g.webp"
             aria-label="the photo 12"></a>
+          
           
           
           
@@ -690,9 +757,11 @@
             name="DSCF3603.16oxwnt9kjuk" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3603.16oxwnt9kjuk.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3603.16oxwnt9kjuk.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 1250 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:22:34","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 1250","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.253425,108.94808333333334],"name":"DSCF3603.16oxwnt9kjuk","path":"20250208-西安城墙-长安灯会/DSCF3603.16oxwnt9kjuk.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3603.16oxwnt9kjuk.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3603.16oxwnt9kjuk.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3603.16oxwnt9kjuk.webp"
             aria-label="the photo 13"></a>
+          
           
           
           
@@ -708,9 +777,11 @@
             name="DSCF3604.4iuuxtimx6w0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3604.4iuuxtimx6w0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3604.4iuuxtimx6w0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 1000 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:23:51","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 1000","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.253439444444446,108.94830666666667],"name":"DSCF3604.4iuuxtimx6w0","path":"20250208-西安城墙-长安灯会/DSCF3604.4iuuxtimx6w0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3604.4iuuxtimx6w0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3604.4iuuxtimx6w0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3604.4iuuxtimx6w0.webp"
             aria-label="the photo 14"></a>
+          
           
           
           
@@ -726,9 +797,11 @@
             name="DSCF3607.5dm34ycxykw0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3607.5dm34ycxykw0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3607.5dm34ycxykw0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 800 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:24:11","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 800","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.25349861111111,108.94827444444445],"name":"DSCF3607.5dm34ycxykw0","path":"20250208-西安城墙-长安灯会/DSCF3607.5dm34ycxykw0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3607.5dm34ycxykw0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3607.5dm34ycxykw0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3607.5dm34ycxykw0.webp"
             aria-label="the photo 15"></a>
+          
           
           
           
@@ -744,9 +817,11 @@
             name="DSCF3610.4pzum7zow3s0" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3610.4pzum7zow3s0.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3610.4pzum7zow3s0.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 4000 25.1mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:25:39","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"25.1mm","EXIF ISOSpeedRatings":"ISO 4000","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.25342583333333,108.94874305555555],"name":"DSCF3610.4pzum7zow3s0","path":"20250208-西安城墙-长安灯会/DSCF3610.4pzum7zow3s0.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3610.4pzum7zow3s0.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3610.4pzum7zow3s0.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3610.4pzum7zow3s0.webp"
             aria-label="the photo 16"></a>
+          
           
           
           
@@ -762,6 +837,7 @@
             name="DSCF3615.22crehnuxwxs" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3615.22crehnuxwxs.webp"
             desc=" - · - "
             share="20250208-西安城墙-长安灯会/DSCF3615.22crehnuxwxs.webp"
+            video=""
             extra='{"desc":null,"dir":"20250208-西安城墙-长安灯会","exif":"FUJIFILM X-S20 1/210s F3.5 ISO 1600 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:02:08 20:26:36","EXIF ExposureTime":"1/210s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 1600","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[34.253414444444445,108.94890583333334],"name":"DSCF3615.22crehnuxwxs","path":"20250208-西安城墙-长安灯会/DSCF3615.22crehnuxwxs.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3615.22crehnuxwxs.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@master/20250208-西安城墙-长安灯会/DSCF3615.22crehnuxwxs.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//20250208-西安城墙-长安灯会/DSCF3615.22crehnuxwxs.webp"
             aria-label="the photo 17"></a>
@@ -843,6 +919,7 @@
           name = target.getAttribute('name');
           var desc = target.getAttribute('desc');
           var thum = target.getAttribute('data-src');
+          var video = target.getAttribute('video');
           var v = JSON.parse(target.getAttribute('extra'));
           imageBox.src = thum;
           imageBox.classList.add('blur');
@@ -856,6 +933,9 @@
           imageBox.setAttribute("share", target.getAttribute('share'));
           var imageFancy = imageBox.parentElement; // imageBox 是放置大图片的图框
           imageFancy.setAttribute("href", imgLink);
+
+          var picg = document.getElementById('pic-g');
+          attachLivePhoto(picg, video !== '', video);
           var fancyBoxImage = document.getElementsByClassName("fancybox__image")[0];
           if (fancyBoxImage !== undefined) {
             fancyBoxImage.src = imgLink;
@@ -1140,6 +1220,7 @@
             border: 0.8px solid white;
           }
         }
+
       </style>
 </section>
   <!-- Footer -->
