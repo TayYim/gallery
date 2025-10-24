@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Gallery of Souyou</title>
+  <title>Gallery of YAN Songyang</title>
   
   <subtitle>Take Photo Think Seriously</subtitle>
   <link href="https://tayyim.github.io/create-gallery/atom.xml" rel="self"/>
   
   <link href="https://tayyim.github.io/create-gallery/"/>
-  <updated>2025-10-24T07:07:21.446Z</updated>
+  <updated>2025-10-24T07:23:35.295Z</updated>
   <id>https://tayyim.github.io/create-gallery/</id>
   
   <author>
-    <name>Souyou</name>
+    <name>YAN Songyang</name>
     
   </author>
   
@@ -20,8 +20,8 @@
     <title>照片集</title>
     <link href="https://tayyim.github.io/create-gallery/2025/undefined/"/>
     <id>https://tayyim.github.io/create-gallery/2025/undefined/</id>
-    <published>2025-10-24T07:07:21.446Z</published>
-    <updated>2025-10-24T07:07:21.446Z</updated>
+    <published>2025-10-24T07:23:35.295Z</published>
+    <updated>2025-10-24T07:23:35.295Z</updated>
     
     
     
