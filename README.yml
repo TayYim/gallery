@@ -1,19 +1,31 @@
+日比谷公园园艺展:
+  url: hibiya-garden-251024
+  date: "2025-10-24"
+  style: fullscreen
+  cover: hibiya-garden-251024/DSCF4244.webp
+  location:
+    - 35.67375092196895
+    - 139.75629532064835
 长安灯会:
   url: 20250208-西安城墙-长安灯会
-  date: 2025-02-08
+  date: "2025-02-08"
   cover: 20250208-西安城墙-长安灯会/DSCF3578.1029jljjto2o.webp
   style: fullscreen
-  location: [34.277304308040314, 108.94717354979677]
-
+  location:
+    - 34.277304308040314
+    - 108.94717354979677
 2025 · New Year:
   url: 2025CNY
-  date: 2025-01-29
+  date: "2025-01-29"
   cover: 2025CNY/DSCF3118.ziys0u7dxmo.webp
-  location: [22.779857063051775, 113.27021291107673]
-
+  location:
+    - 22.779857063051775
+    - 113.27021291107673
 北京出差:
   url: 北京出差
-  date: 2023-08-18
+  date: "2023-08-18"
   cover: 北京出差/DSCF2679.HIF_compressed.3izwbhw8uw80.webp
   style: fullscreen
-  location: [39.90482509145324, 116.39774891547879]
+  location:
+    - 39.90482509145324
+    - 116.39774891547879
