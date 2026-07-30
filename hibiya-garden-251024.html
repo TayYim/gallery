@@ -3,7 +3,8 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" data-skin="modern">
 <!-- Head tag -->
 <head>
   <meta charset="utf-8">
@@ -105,6 +106,10 @@
   }
 </style>
 
+  
+  
+<link rel="stylesheet" href="/gallery/css/tokens.css">
+
   <!-- Custom CSS/Sass -->
   
 <link rel="stylesheet" href="/gallery/css/style.css">
@@ -112,21 +117,30 @@
   
 <link rel="stylesheet" href="/gallery/css/fancybox.css">
 
-  <!--样式切换-->
-  
   
 <link rel="stylesheet" href="/gallery/css/material3.css">
 
   
   
   
-  
-  
-  <!--highlight.js CSS-->
-  
-  
-<link rel="stylesheet" href="/gallery/css/highlight/github.css">
+<link rel="stylesheet" href="/gallery/css/skins/classic.css">
 
+  
+  
+<link rel="stylesheet" href="/gallery/css/skins/darkroom.css">
+
+  
+  
+<link rel="stylesheet" href="/gallery/css/skins/gallery.css">
+
+  
+  
+<link rel="stylesheet" href="/gallery/css/skins/editorial.css">
+
+  
+  
+  
+  
   
   
 
@@ -391,30 +405,24 @@
 
 
 
-<style>
-  .navicon {
-    font-size: 18px;
-    padding-top: 18px;
-    color: var(--main-black);
-  }
-</style>
+
   <!-- Main Content -->
-  <script src="js/html2canvas.min.js" defer></script>
-<script src="js/mini-live-photo.js"></script>
+  <script src="js/mini-live-photo.js"></script>
 <section class="pjax-area">
   <div class="content-area post-album fullscreen-content-area">
     <div class="grid grid-cols-3">
       <div class="fullscreen-pic gap-2 wrapper">
         <div id="all-pic" class="pic-area">
           <div id="pic-g" class="pic-item" />
-          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4215.webp" />
+          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4215.webp" alt="" decoding="async" fetchpriority="high" />
         </div>
         <div id="exif-wrapper" class="pic-wrapper">
     <div class="exif-left" style="display: flex; flex-direction: column; justify-content: center;">
         <div id="exif-param"></div>
         <div id="exif-date"></div>
     </div>
-    <div class="exif-right" style="display: flex; flex-direction: column; justify-self: center;">
+    
+    <div class="exif-right" style="display: flex; flex-direction: column; justify-content: center;">
         <div style="display: flex; flex-direction:row; justify-content: start;">
             <div style="display: flex; justify-content: center; flex-direction: column;">
                 <img id="exif-maker-logo" class="nofancy" style="object-fit: cover;"></img>
@@ -468,9 +476,26 @@
     }
 
     #exif-lens {
+        /* 镜头型号可能很长，需要「超出截断 + 省略号」。原来直接写 overflow: hidden，
+           但它连纵向一起裁：实测这行字的墨迹会伸出行盒约 1.8px（字体 ascent +
+           descent 之和大于 line-height），底部因此被削。屏幕上 12.8px 字号看不出，
+           下载图放大 4.6 倍后很明显——看着像和下一行叠在一起。
+
+           试过几条路都不行：
+           - overflow-x: hidden + overflow-y: visible ——按 CSS 规范，一个方向非
+             visible 时另一个的 visible 会被算成 auto，照样裁；
+           - overflow-clip-margin ——html2canvas 不支持，实测无效；
+           - 单纯加大 line-height ——盒子变高的同时文字也整体下移，余量只从
+             0.3px 涨到 0.6px，白付出行距。
+
+           成立的做法：padding 在盒子内侧，能把裁剪边往下推；再用等量负 margin
+           抵消掉它对布局的影响，卡片高度不变。实测墨迹底部回到 622.5px，与
+           overflow: visible 的基准完全一致，即一点没被削。 */
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        padding-bottom: 4px;
+        margin-bottom: -4px;
     }
 
     .pic-wrapper {
@@ -616,14 +641,15 @@
           
           
           
-          <a class="album-item lazy" id="0"
+          <a class="album-item" id="0"
             name="DSCF4215" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4215.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4215.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/150s F5 ISO 250 51.8mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:27:36","EXIF ExposureTime":"1/150s","EXIF FNumber":"F5","EXIF FocalLength":"51.8mm","EXIF ISOSpeedRatings":"ISO 250","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67308277777777,139.75629833333332],"name":"DSCF4215","path":"hibiya-garden-251024/DSCF4215.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4215.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4215.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4215.webp"
-            aria-label="the photo 0"></a>
+            aria-label="the photo 0"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4215.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -636,14 +662,15 @@
           
           
           
-          <a class="album-item lazy" id="1"
+          <a class="album-item" id="1"
             name="DSCF4216" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4216.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4216.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/170s F5 ISO 200 57.9mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:27:54","EXIF ExposureTime":"1/170s","EXIF FNumber":"F5","EXIF FocalLength":"57.9mm","EXIF ISOSpeedRatings":"ISO 200","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67216527777777,139.75598944444445],"name":"DSCF4216","path":"hibiya-garden-251024/DSCF4216.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4216.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4216.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4216.webp"
-            aria-label="the photo 1"></a>
+            aria-label="the photo 1"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4216.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -656,14 +683,15 @@
           
           
           
-          <a class="album-item lazy" id="2"
+          <a class="album-item" id="2"
             name="DSCF4217" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4217.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4217.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/200s F5 ISO 800 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:28:04","EXIF ExposureTime":"1/200s","EXIF FNumber":"F5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 800","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67277583333333,139.75579305555556],"name":"DSCF4217","path":"hibiya-garden-251024/DSCF4217.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4217.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4217.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4217.webp"
-            aria-label="the photo 2"></a>
+            aria-label="the photo 2"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4217.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -676,14 +704,15 @@
           
           
           
-          <a class="album-item lazy" id="3"
+          <a class="album-item" id="3"
             name="DSCF4219" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4219.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4219.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/105s F5 ISO 500 35mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:28:46","EXIF ExposureTime":"1/105s","EXIF FNumber":"F5","EXIF FocalLength":"35mm","EXIF ISOSpeedRatings":"ISO 500","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.672863888888884,139.75580527777777],"name":"DSCF4219","path":"hibiya-garden-251024/DSCF4219.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4219.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4219.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4219.webp"
-            aria-label="the photo 3"></a>
+            aria-label="the photo 3"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4219.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -696,14 +725,15 @@
           
           
           
-          <a class="album-item lazy" id="4"
+          <a class="album-item" id="4"
             name="DSCF4220" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4220.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4220.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/140s F5 ISO 320 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:29:22","EXIF ExposureTime":"1/140s","EXIF FNumber":"F5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.672777777777775,139.75574083333333],"name":"DSCF4220","path":"hibiya-garden-251024/DSCF4220.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4220.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4220.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4220.webp"
-            aria-label="the photo 4"></a>
+            aria-label="the photo 4"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4220.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -716,14 +746,15 @@
           
           
           
-          <a class="album-item lazy" id="5"
+          <a class="album-item" id="5"
             name="DSCF4222" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4222.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4222.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/300s F3.2 ISO 160 51.8mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:29:47","EXIF ExposureTime":"1/300s","EXIF FNumber":"F3.2","EXIF FocalLength":"51.8mm","EXIF ISOSpeedRatings":"ISO 160","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.672754166666664,139.75573944444446],"name":"DSCF4222","path":"hibiya-garden-251024/DSCF4222.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4222.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4222.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4222.webp"
-            aria-label="the photo 5"></a>
+            aria-label="the photo 5"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4222.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -736,14 +767,15 @@
           
           
           
-          <a class="album-item lazy" id="6"
+          <a class="album-item" id="6"
             name="DSCF4224" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4224.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4224.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/950s F3.5 ISO 320 57.9mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:30:53","EXIF ExposureTime":"1/950s","EXIF FNumber":"F3.5","EXIF FocalLength":"57.9mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67252583333333,139.75561],"name":"DSCF4224","path":"hibiya-garden-251024/DSCF4224.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4224.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4224.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4224.webp"
-            aria-label="the photo 6"></a>
+            aria-label="the photo 6"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4224.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -756,14 +788,15 @@
           
           
           
-          <a class="album-item lazy" id="7"
+          <a class="album-item" id="7"
             name="DSCF4225" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4225.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4225.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/170s F3.5 ISO 320 31mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:31:11","EXIF ExposureTime":"1/170s","EXIF FNumber":"F3.5","EXIF FocalLength":"31mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67246833333333,139.7556238888889],"name":"DSCF4225","path":"hibiya-garden-251024/DSCF4225.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4225.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4225.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4225.webp"
-            aria-label="the photo 7"></a>
+            aria-label="the photo 7"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4225.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -776,14 +809,15 @@
           
           
           
-          <a class="album-item lazy" id="8"
+          <a class="album-item" id="8"
             name="DSCF4227" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4227.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4227.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/100s F3.5 ISO 160 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:32:06","EXIF ExposureTime":"1/100s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 160","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67236638888889,139.7557363888889],"name":"DSCF4227","path":"hibiya-garden-251024/DSCF4227.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4227.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4227.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4227.webp"
-            aria-label="the photo 8"></a>
+            aria-label="the photo 8"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4227.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -796,14 +830,15 @@
           
           
           
-          <a class="album-item lazy" id="9"
+          <a class="album-item" id="9"
             name="DSCF4228" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4228.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4228.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/480s F3.5 ISO 320 35mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:32:57","EXIF ExposureTime":"1/480s","EXIF FNumber":"F3.5","EXIF FocalLength":"35mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.6723675,139.75587],"name":"DSCF4228","path":"hibiya-garden-251024/DSCF4228.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4228.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4228.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4228.webp"
-            aria-label="the photo 9"></a>
+            aria-label="the photo 9"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4228.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -816,14 +851,15 @@
           
           
           
-          <a class="album-item lazy" id="10"
+          <a class="album-item" id="10"
             name="DSCF4229" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4229.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4229.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/950s F3.5 ISO 320 35mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:33:14","EXIF ExposureTime":"1/950s","EXIF FNumber":"F3.5","EXIF FocalLength":"35mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.6724275,139.75588083333332],"name":"DSCF4229","path":"hibiya-garden-251024/DSCF4229.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4229.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4229.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4229.webp"
-            aria-label="the photo 10"></a>
+            aria-label="the photo 10"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4229.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -836,14 +872,15 @@
           
           
           
-          <a class="album-item lazy" id="11"
+          <a class="album-item" id="11"
             name="DSCF4230" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4230.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4230.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/480s F3.5 ISO 320 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:33:33","EXIF ExposureTime":"1/480s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.672493055555556,139.7558575],"name":"DSCF4230","path":"hibiya-garden-251024/DSCF4230.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4230.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4230.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4230.webp"
-            aria-label="the photo 11"></a>
+            aria-label="the photo 11"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4230.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -856,14 +893,15 @@
           
           
           
-          <a class="album-item lazy" id="12"
+          <a class="album-item" id="12"
             name="DSCF4231" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4231.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4231.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/450s F3.5 ISO 320 26.2mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:34:12","EXIF ExposureTime":"1/450s","EXIF FNumber":"F3.5","EXIF FocalLength":"26.2mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67262083333333,139.75597694444446],"name":"DSCF4231","path":"hibiya-garden-251024/DSCF4231.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4231.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4231.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4231.webp"
-            aria-label="the photo 12"></a>
+            aria-label="the photo 12"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4231.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -876,14 +914,15 @@
           
           
           
-          <a class="album-item lazy" id="13"
+          <a class="album-item" id="13"
             name="DSCF4232" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4232.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4232.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/200s F3.5 ISO 320 29.2mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:34:34","EXIF ExposureTime":"1/200s","EXIF FNumber":"F3.5","EXIF FocalLength":"29.2mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.672664999999995,139.75596083333335],"name":"DSCF4232","path":"hibiya-garden-251024/DSCF4232.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4232.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4232.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4232.webp"
-            aria-label="the photo 13"></a>
+            aria-label="the photo 13"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4232.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -896,14 +935,15 @@
           
           
           
-          <a class="album-item lazy" id="14"
+          <a class="album-item" id="14"
             name="DSCF4233" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4233.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4233.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/210s F3.5 ISO 320 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:34:44","EXIF ExposureTime":"1/210s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67265555555555,139.75596027777777],"name":"DSCF4233","path":"hibiya-garden-251024/DSCF4233.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4233.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4233.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4233.webp"
-            aria-label="the photo 14"></a>
+            aria-label="the photo 14"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4233.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -916,14 +956,15 @@
           
           
           
-          <a class="album-item lazy" id="15"
+          <a class="album-item" id="15"
             name="DSCF4234" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4234.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4234.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/210s F3.5 ISO 200 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:35:02","EXIF ExposureTime":"1/210s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 200","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67270611111111,139.75599944444446],"name":"DSCF4234","path":"hibiya-garden-251024/DSCF4234.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4234.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4234.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4234.webp"
-            aria-label="the photo 15"></a>
+            aria-label="the photo 15"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4234.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -936,14 +977,15 @@
           
           
           
-          <a class="album-item lazy" id="16"
+          <a class="album-item" id="16"
             name="DSCF4236" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4236.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4236.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/240s F3.5 ISO 320 51.8mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:35:38","EXIF ExposureTime":"1/240s","EXIF FNumber":"F3.5","EXIF FocalLength":"51.8mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67279111111111,139.75605277777777],"name":"DSCF4236","path":"hibiya-garden-251024/DSCF4236.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4236.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4236.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4236.webp"
-            aria-label="the photo 16"></a>
+            aria-label="the photo 16"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4236.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -956,14 +998,15 @@
           
           
           
-          <a class="album-item lazy" id="17"
+          <a class="album-item" id="17"
             name="DSCF4237" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4237.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4237.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/250s F3.5 ISO 160 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:35:57","EXIF ExposureTime":"1/250s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 160","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.672826666666666,139.75610583333332],"name":"DSCF4237","path":"hibiya-garden-251024/DSCF4237.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4237.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4237.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4237.webp"
-            aria-label="the photo 17"></a>
+            aria-label="the photo 17"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4237.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -976,14 +1019,15 @@
           
           
           
-          <a class="album-item lazy" id="18"
+          <a class="album-item" id="18"
             name="DSCF4238" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4238.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4238.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/420s F3.5 ISO 320 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:36:08","EXIF ExposureTime":"1/420s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67283388888889,139.75608777777776],"name":"DSCF4238","path":"hibiya-garden-251024/DSCF4238.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4238.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4238.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4238.webp"
-            aria-label="the photo 18"></a>
+            aria-label="the photo 18"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4238.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -996,14 +1040,15 @@
           
           
           
-          <a class="album-item lazy" id="19"
+          <a class="album-item" id="19"
             name="DSCF4239" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4239.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4239.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/350s F3.5 ISO 320 35mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:36:37","EXIF ExposureTime":"1/350s","EXIF FNumber":"F3.5","EXIF FocalLength":"35mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67292555555555,139.75614166666668],"name":"DSCF4239","path":"hibiya-garden-251024/DSCF4239.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4239.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4239.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4239.webp"
-            aria-label="the photo 19"></a>
+            aria-label="the photo 19"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4239.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1016,14 +1061,15 @@
           
           
           
-          <a class="album-item lazy" id="20"
+          <a class="album-item" id="20"
             name="DSCF4240" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4240.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4240.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/280s F3.5 ISO 160 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:37:39","EXIF ExposureTime":"1/280s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 160","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.673069166666664,139.75627694444444],"name":"DSCF4240","path":"hibiya-garden-251024/DSCF4240.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4240.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4240.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4240.webp"
-            aria-label="the photo 20"></a>
+            aria-label="the photo 20"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4240.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1036,14 +1082,15 @@
           
           
           
-          <a class="album-item lazy" id="21"
+          <a class="album-item" id="21"
             name="DSCF4241" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4241.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4241.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/210s F3.5 ISO 160 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:37:53","EXIF ExposureTime":"1/210s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 160","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.673071388888886,139.75623055555556],"name":"DSCF4241","path":"hibiya-garden-251024/DSCF4241.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4241.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4241.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4241.webp"
-            aria-label="the photo 21"></a>
+            aria-label="the photo 21"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4241.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1056,14 +1103,15 @@
           
           
           
-          <a class="album-item lazy" id="22"
+          <a class="album-item" id="22"
             name="DSCF4242" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4242.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4242.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/210s F3.5 ISO 160 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:37:59","EXIF ExposureTime":"1/210s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 160","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.673071388888886,139.75623055555556],"name":"DSCF4242","path":"hibiya-garden-251024/DSCF4242.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4242.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4242.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4242.webp"
-            aria-label="the photo 22"></a>
+            aria-label="the photo 22"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4242.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1076,14 +1124,15 @@
           
           
           
-          <a class="album-item lazy" id="23"
+          <a class="album-item" id="23"
             name="DSCF4244" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4244.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4244.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/210s F3.5 ISO 320 54.7mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:38:24","EXIF ExposureTime":"1/210s","EXIF FNumber":"F3.5","EXIF FocalLength":"54.7mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.673070833333334,139.75626],"name":"DSCF4244","path":"hibiya-garden-251024/DSCF4244.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4244.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4244.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4244.webp"
-            aria-label="the photo 23"></a>
+            aria-label="the photo 23"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4244.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1096,14 +1145,15 @@
           
           
           
-          <a class="album-item lazy" id="24"
+          <a class="album-item" id="24"
             name="DSCF4245" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4245.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4245.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/480s F3.5 ISO 320 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:38:52","EXIF ExposureTime":"1/480s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67312694444444,139.75631],"name":"DSCF4245","path":"hibiya-garden-251024/DSCF4245.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4245.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4245.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4245.webp"
-            aria-label="the photo 24"></a>
+            aria-label="the photo 24"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4245.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1116,14 +1166,15 @@
           
           
           
-          <a class="album-item lazy" id="25"
+          <a class="album-item" id="25"
             name="DSCF4247" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4247.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4247.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/1000s F3.5 ISO 320 17mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:41:31","EXIF ExposureTime":"1/1000s","EXIF FNumber":"F3.5","EXIF FocalLength":"17mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.673247499999995,139.75661472222222],"name":"DSCF4247","path":"hibiya-garden-251024/DSCF4247.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4247.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4247.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4247.webp"
-            aria-label="the photo 25"></a>
+            aria-label="the photo 25"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4247.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1136,14 +1187,15 @@
           
           
           
-          <a class="album-item lazy" id="26"
+          <a class="album-item" id="26"
             name="DSCF4249" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4249.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4249.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/210s F3.5 ISO 400 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:42:55","EXIF ExposureTime":"1/210s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 400","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.672960277777776,139.7561488888889],"name":"DSCF4249","path":"hibiya-garden-251024/DSCF4249.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4249.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4249.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4249.webp"
-            aria-label="the photo 26"></a>
+            aria-label="the photo 26"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4249.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1156,14 +1208,15 @@
           
           
           
-          <a class="album-item lazy" id="27"
+          <a class="album-item" id="27"
             name="DSCF4250" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4250.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4250.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/150s F3.5 ISO 320 34mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:43:07","EXIF ExposureTime":"1/150s","EXIF FNumber":"F3.5","EXIF FocalLength":"34mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.672956666666664,139.75614861111112],"name":"DSCF4250","path":"hibiya-garden-251024/DSCF4250.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4250.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4250.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4250.webp"
-            aria-label="the photo 27"></a>
+            aria-label="the photo 27"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4250.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1176,14 +1229,15 @@
           
           
           
-          <a class="album-item lazy" id="28"
+          <a class="album-item" id="28"
             name="DSCF4251" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4251.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4251.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/125s F3.5 ISO 320 34mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:43:18","EXIF ExposureTime":"1/125s","EXIF FNumber":"F3.5","EXIF FocalLength":"34mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67294083333333,139.75614944444445],"name":"DSCF4251","path":"hibiya-garden-251024/DSCF4251.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4251.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4251.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4251.webp"
-            aria-label="the photo 28"></a>
+            aria-label="the photo 28"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4251.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1196,14 +1250,15 @@
           
           
           
-          <a class="album-item lazy" id="29"
+          <a class="album-item" id="29"
             name="DSCF4252" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4252.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4252.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/210s F3.5 ISO 200 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:43:50","EXIF ExposureTime":"1/210s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 200","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67289944444444,139.75612972222223],"name":"DSCF4252","path":"hibiya-garden-251024/DSCF4252.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4252.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4252.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4252.webp"
-            aria-label="the photo 29"></a>
+            aria-label="the photo 29"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4252.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1216,14 +1271,15 @@
           
           
           
-          <a class="album-item lazy" id="30"
+          <a class="album-item" id="30"
             name="DSCF4253" rel="https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4253.webp"
             desc=" - · - "
             share="hibiya-garden-251024/DSCF4253.webp"
             video=""
             extra='{"desc":null,"dir":"hibiya-garden-251024","exif":"FUJIFILM X-S20 1/320s F3.5 ISO 320 70mm 17-70mm F/2.8 DiIII-A VC RXD B070X ","exif_data":{"EXIF DateTimeOriginal":"2025:10:24 14:44:39","EXIF ExposureTime":"1/320s","EXIF FNumber":"F3.5","EXIF FocalLength":"70mm","EXIF ISOSpeedRatings":"ISO 320","EXIF LensModel":"17-70mm F/2.8 DiIII-A VC RXD B070X","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[35.67265944444444,139.7559511111111],"name":"DSCF4253","path":"hibiya-garden-251024/DSCF4253.webp","thum":"https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4253.webp","url":"https://cdn.jsdelivr.net/gh/TayYim/gallery@4eca08e7c4867e096a67ce54daf2dc5eee7a8ebb/hibiya-garden-251024/DSCF4253.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4253.webp"
-            aria-label="the photo 30"></a>
+            aria-label="the photo 30"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/TayYim/gallery@thumbnail//hibiya-garden-251024/DSCF4253.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
       </div>
       <div class="text-center text-xs pt-2 hint-text"> </div>
@@ -1241,9 +1297,6 @@
           </div>
           <div class="album-share album-tool">
             <iconpark-icon name="down-picture"></iconpark-icon><a id="download" href="javascript:void(0)"> Download </a>
-          </div>
-          <div class="album-share album-tool">
-            <iconpark-icon name="save"></iconpark-icon><a id="editor" href="javascript:void(0)"> Editor </a>
           </div>
           <div class="album-share album-tool">
             <iconpark-icon name="grid-nine"></iconpark-icon><a id="grid" href="javascript:void(0)"> Grid </a>
@@ -1281,7 +1334,6 @@
         var normalWrapper = $("#normal-wrapper");
         var normalData = $("#no-exif-data");
         var name = getParam('name');
-        var editor = $("#editor");
         imgno = 0;
         imgLink = imageBox.src;
         // Monotonic token: guards against a slow earlier high-res load finishing
@@ -1397,19 +1449,14 @@
         }
 
         $('#download').click(function () {
-          var node = document.getElementById('all-pic');
-          html2canvas(node, {
-            useCORS: true,
-            allowTaint: true,
-            scrollX: 0,
-            scrollY: 0,
-          }).then(function (canvas) {
-            simulateDownloadImageClick(canvas.toDataURL('image/png'),  name + '.png');
+          downloadFramedPhoto({
+            node: document.getElementById('all-pic'),
+            img: imageBox,
+            fullSrc: imgLink,      // 当前选中照片的原图，不是缩略图
+            filename: name,
+            button: this,
           });
         });
-        editor.click(function () {
-          window.open('https://tayyim.github.io/create-gallery/editor?file=' + encodeURIComponent(imgLink));
-        })
         // key
         window.onkeydown = function album_hotkey() {
           //[键盘快捷键] 左箭头 上一张
@@ -1508,7 +1555,7 @@
       </script>
       <style>
         body {
-          background-color: #fff;
+          background-color: var(--surface-2);
         }
 
         .fullscreen-pic {
@@ -1535,7 +1582,7 @@
         }
 
         .pic-item {
-          background-color: black;
+          background-color: var(--photo-mat);
           background-size: cover;
           background-position: center;
           transition: all .1s ease-in-out;
@@ -1591,7 +1638,7 @@
         .album-tool {
           display: inline-flex;
           font-size: .8em;
-          color: #71afdd;
+          color: var(--main-color);
           gap: 4px;
           padding-bottom: 4px;
         }
@@ -1602,14 +1649,30 @@
         }
 
         .album-item {
-          background-color: black;
+          background-color: var(--surface-2);
           aspect-ratio: 1 / 1;
-          border: 0.8px solid black;
-          border-radius: 2px;
-          min-height: 100px;
-          min-width: 100px;
-          background-size: cover;
-          background-position: center;
+          border: 0.8px solid var(--border-subtle);
+          border-radius: var(--tile-radius);
+          /* 尺寸必须写死。以前 .album-item 是个空 <a>（背景图不产生内容尺寸），
+             靠 min-width 就能收成小方块；现在里面装了张 1000px 的缩略图，
+             flex 基准尺寸会变成 1000px，不写死就会把整条缩略图带撑爆。 */
+          width: 100px;
+          height: 100px;
+          flex: 0 0 auto;
+          position: relative;
+          overflow: hidden;
+        }
+
+        /* 缩略图改用真 <img>（原来是 lazyload.js 往 <a> 上刷 background-image），
+           好处是走浏览器原生的 loading/decoding。pointer-events: none 让点击穿透到
+           外层 <a>——changeimg() 读的是 event.target 上的 data-src，不穿透就点不动了；
+           顺带也禁掉了缩略图被拖走的默认行为。 */
+        .album-item img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          pointer-events: none;
         }
 
         @media (max-width: 768px) {
@@ -1707,15 +1770,15 @@
           }
 
           .pic-item {
-            background-color: black;
+            background-color: var(--photo-mat);
           }
 
           .album-item {
-            background-color: black;
+            background-color: var(--photo-mat);
           }
 
           .album-item {
-            border: 0.8px solid white;
+            border: 0.8px solid var(--border-subtle);
           }
         }
 
@@ -1759,25 +1822,12 @@
 <link rel="stylesheet" href="" />
 <script src="/gallery/js/fancybox.umd.js" defer></script>
 
-<!-- mdui -->
-
 <!-- busuanzi -->
 
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script> -->
 
 <!-- highlightjs -->
 
-
-<script src="/gallery/js/highlight.min.js"></script>
-
-<script>window.addEventListener('load', () => {
-  hljs.highlightAll(); // initialize highlighting
-});</script>
-<script>
-  $("pre.code").each(function() {
-    $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
-  });
-</script>
 
 
 
@@ -1809,6 +1859,62 @@
 <!---->
 <!---->
 <!--首页键盘快捷键-->
+
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'sdt.overrides.v1';
+
+  window.__sdtDefaultSkin = 'modern';
+  window.__sdtShowButton = false;
+
+  // ── 1) 重放覆盖 ────────────────────────────────────────────────────────
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY)) || {};
+    if (saved['data-skin']) root.dataset.skin = saved['data-skin'];
+    Object.keys(saved).forEach(function (k) {
+      if (k !== 'data-skin') root.style.setProperty(k, saved[k]);
+    });
+  } catch (e) { /* localStorage 不可用（隐私模式等）时就当没存过 */ }
+
+  // ── 2) Shift+D ─────────────────────────────────────────────────────────
+  var loading = false;
+
+  function summon() {
+    if (window.__sdtToggle) { window.__sdtToggle(); return; }   // 已加载，直接开关
+    if (loading) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = '/gallery/js/skin-devtool.js';
+    s.onload = function () {
+      window.__sdtInit();
+      window.__sdtToggle();      // 首次唤出直接打开，不用再按一次
+    };
+    s.onerror = function () {
+      loading = false;
+      console.warn('[skin-devtool] 加载失败：' + s.src);
+    };
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'D' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+    // 输入焦点保护。主题原有的 Shift+1..5 快捷键没做这个，在评论框里敲字会误触
+    // （上游 e538133 也修过一次同类问题）。这里从一开始就带上。
+    var el = document.activeElement;
+    if (el && (el.isContentEditable ||
+               /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    e.preventDefault();
+    summon();
+  });
+
+  // 配置里开了浮标，就得先把面板加载出来才有按钮可点
+  if (window.__sdtShowButton) summon();
+})();
+</script>
+
 
   <style>
   :root {

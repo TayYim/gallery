@@ -3,7 +3,8 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" data-skin="modern">
 <!-- Head tag -->
 <head>
   <meta charset="utf-8">
@@ -22,14 +23,14 @@
   <meta name="author" content="YAN Songyang">
   
   <!--Open Graph Title-->
-  <meta property="og:title" content="编辑器" />
+  <meta property="og:title" content="Gallery of YAN Songyang" />
   <!--Open Graph Description-->
   <meta property="og:description" content="拿起相机，认真思考" />
   <!--Open Graph Site Name-->
   <meta property="og:site_name" content="Gallery of YAN Songyang" />
   <!--Type page-->
   
-  <meta property="og:type" content="article" />
+  <meta property="og:type" content="website" />
   
   <!--Page Cover-->
   
@@ -38,7 +39,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- Title -->
   
-  <title>编辑器 - Gallery of YAN Songyang</title>
+  <title>归档：2023/8 - Gallery of YAN Songyang</title>
   <!-- 添加到主屏后的标题（iOS 6 新增） -->
   <meta name="apple-mobile-web-app-title" content="Gallery of YAN Songyang">
   <!-- 是否启用 WebApp 全屏模式 -->
@@ -105,6 +106,10 @@
   }
 </style>
 
+  
+  
+<link rel="stylesheet" href="/gallery/css/tokens.css">
+
   <!-- Custom CSS/Sass -->
   
 <link rel="stylesheet" href="/gallery/css/style.css">
@@ -112,21 +117,30 @@
   
 <link rel="stylesheet" href="/gallery/css/fancybox.css">
 
-  <!--样式切换-->
-  
   
 <link rel="stylesheet" href="/gallery/css/material3.css">
 
   
   
   
-  
-  
-  <!--highlight.js CSS-->
-  
-  
-<link rel="stylesheet" href="/gallery/css/highlight/github.css">
+<link rel="stylesheet" href="/gallery/css/skins/classic.css">
 
+  
+  
+<link rel="stylesheet" href="/gallery/css/skins/darkroom.css">
+
+  
+  
+<link rel="stylesheet" href="/gallery/css/skins/gallery.css">
+
+  
+  
+<link rel="stylesheet" href="/gallery/css/skins/editorial.css">
+
+  
+  
+  
+  
   
   
 
@@ -391,51 +405,62 @@
 
 
 
+
+  <!-- Main Content -->
+  
+
+<section class="pjax-area">
+  <div class="content-area p-4 container max-w-[1280px]">
+    <div class="index-achieve-title title">2023/8</div>
+    <div class="text-2xl leading-10 py-2 col-span-1 md:col-span-3 text-tblack dark:text-white">分类</div>
+    <section class="itp-article-categories" style="list-style-type: none;">
+      <div class="itp-m3-chip-color-list">
+        
+      </div>
+    </section>
+    <div class="text-2xl leading-10 py-2 col-span-1 md:col-span-3 text-tblack dark:text-white">标签</div>
+    <section class="itp-article-categories" style="list-style-type: none;">
+      <div class="itp-m3-chip-normal-list">
+        
+      </div>
+    </section>
+    <!-- learn from https://hughsite.com/post/hexo-modify-theme.html -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+  
+  
+  
+  
+  <p class="text-2xl leading-10 py-2 col-span-1 md:col-span-2 lg:col-span-3 gap-1 text-tblack dark:text-white">2023</p>
+  
+  
+  <div class="h-auto px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition-all">
+    <a href="/gallery/2023/undefined/" class="flex items-center">
+      <div class="px-1">
+        <div class="post-title text-tblack dark:text-white">照片集</div>
+        <span class="text-sm leading-4 text-gray-400">2023-08-18</span>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+</div>
 <style>
-  .navicon {
-    font-size: 18px;
-    padding-top: 18px;
-    color: var(--main-black);
+  .post-title {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .post-icon {
+    font-size: 1.2em;
+    color: #9DA3AE;
   }
 </style>
-  <!-- Main Content -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-<script
-    src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js?func=proxy"></script>
-<section class="pjax-area">
-    <div id="image-editor" style="height: 100vh; width: 100%;"></div>
-    <script>
-        const container = document.getElementById("image-editor");
-        const { TABS, TOOLS } = FilerobotImageEditor;
-        const file = getParam('file');
-        const config = {
-            source: file,
-            defaultTabId: TABS.FILTERS,
-        };
-        console.log(TABS.FILTERS)
-        const ImageEditor = new window.FilerobotImageEditor(container, config);
-        ImageEditor.render({
-            // additional config provided while rendering
-            observePluginContainerSize: true,
-            onSave: (imageInfo, designState) => {
-                const tmpLink = document.createElement("a");
-                tmpLink.download = imageInfo.fullName;
-                tmpLink.href = imageInfo.imageBase64;
-                tmpLink.style = "position: absolute; z-index: -111; visibility: none;";
-                document.body.appendChild(tmpLink);
-                tmpLink.click();
-                document.body.removeChild(tmpLink);
-            }
-        });
-    </script>
-    <style>
-        @media (min-width: 769px) {
-            #image-editor {
-                padding-top: 58px;
-            }
-        }
-    </style>
+  </div>
 </section>
+<!--learn from https://github.com/fluid-dev/hexo-theme-fluid/blob/master/layout/archive.ejs-->
   <!-- Footer -->
   <!-- Footer -->
 <footer class="itp-footer text-center">
@@ -462,25 +487,12 @@
 <link rel="stylesheet" href="" />
 <script src="/gallery/js/fancybox.umd.js" defer></script>
 
-<!-- mdui -->
-
 <!-- busuanzi -->
 
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script> -->
 
 <!-- highlightjs -->
 
-
-<script src="/gallery/js/highlight.min.js"></script>
-
-<script>window.addEventListener('load', () => {
-  hljs.highlightAll(); // initialize highlighting
-});</script>
-<script>
-  $("pre.code").each(function() {
-    $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
-  });
-</script>
 
 
 
@@ -512,6 +524,62 @@
 <!---->
 <!---->
 <!--首页键盘快捷键-->
+
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'sdt.overrides.v1';
+
+  window.__sdtDefaultSkin = 'modern';
+  window.__sdtShowButton = false;
+
+  // ── 1) 重放覆盖 ────────────────────────────────────────────────────────
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY)) || {};
+    if (saved['data-skin']) root.dataset.skin = saved['data-skin'];
+    Object.keys(saved).forEach(function (k) {
+      if (k !== 'data-skin') root.style.setProperty(k, saved[k]);
+    });
+  } catch (e) { /* localStorage 不可用（隐私模式等）时就当没存过 */ }
+
+  // ── 2) Shift+D ─────────────────────────────────────────────────────────
+  var loading = false;
+
+  function summon() {
+    if (window.__sdtToggle) { window.__sdtToggle(); return; }   // 已加载，直接开关
+    if (loading) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = '/gallery/js/skin-devtool.js';
+    s.onload = function () {
+      window.__sdtInit();
+      window.__sdtToggle();      // 首次唤出直接打开，不用再按一次
+    };
+    s.onerror = function () {
+      loading = false;
+      console.warn('[skin-devtool] 加载失败：' + s.src);
+    };
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'D' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+    // 输入焦点保护。主题原有的 Shift+1..5 快捷键没做这个，在评论框里敲字会误触
+    // （上游 e538133 也修过一次同类问题）。这里从一开始就带上。
+    var el = document.activeElement;
+    if (el && (el.isContentEditable ||
+               /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    e.preventDefault();
+    summon();
+  });
+
+  // 配置里开了浮标，就得先把面板加载出来才有按钮可点
+  if (window.__sdtShowButton) summon();
+})();
+</script>
+
 
   <style>
   :root {
